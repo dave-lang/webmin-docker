@@ -1,0 +1,3 @@
+desc=Docker container management
+os_support=*-linux
+category=servers

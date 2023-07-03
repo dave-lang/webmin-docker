@@ -1,0 +1,15 @@
+version: '3.5'
+name: 'webmin'
+services:
+  webmin:
+    container_name: webmin_master
+    build:
+      context: ./
+    volumes:
+      #- ../nut/:/etc/webmin/nut:rw
+      #- ../pihole:/etc/webmin/pihole:rw
+      - ../docker:/usr/share/webmin/docker:rw
+    ports:
+      - "10000:10000"
+    cap_add:
+      - NET_ADMIN
