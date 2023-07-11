@@ -34,7 +34,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "docker.wbm.gz"
-          bodyFile: "body.md"
           tag: process.env.RELEASE_TAG
           prerelease: true
           draft: true
