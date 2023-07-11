@@ -1,4 +1,6 @@
 index_title=Docker container management
+not_installed=Docker was not found on this system
+index_return=container list
 
 tab_info=Docker Info
 tab_containers=Containers
@@ -11,6 +13,7 @@ label_runningfor=Running for
 label_cpu=CPU
 label_mem=MEM
 
-command_start=Start
-command_stop=Stop
-command_restart=Restart
+label_start=Start
+label_stop=Stop
+label_restart=Restart
+label_refresh=Refresh

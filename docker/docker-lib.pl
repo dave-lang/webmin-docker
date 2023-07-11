@@ -78,27 +78,37 @@ sub get_stats
 
 sub inspect_container
 {
-    my ($containers, $fail);
-    my $code = execute_command('docker inspect --all --no-stream --format "{{.ID}},{{.CPUPerc}},{{.MemPerc}},{{.MemUsage}}"', undef, \$containers, \$fail, 0, 1);
+    my($container) = @_;
+    my ($result, $fail);
+    # my $code = execute_command('docker inspect ' . $container . ' --format "{{json .}}"', undef, \$result, \$fail, 0, 1);
+    my $code = execute_command('docker inspect ' . $container, undef, \$result, \$fail, 0, 1);
 
     if ($code != 0) {
         return $fail;
     }
 
-    my %results = ( );
-    my @containers = split(/\n/, $containers);
+    # my $json = decode_json($result);
+    # if ($json->{ServerErrors}) {
+    #     return $json->{ServerErrors}[0];
+    # }
 
-    foreach my $u (@containers) {
-        my ($id, $cpu, $mem, $memUsage) = split(/,/, $u);
-        $results{$id} = {
-            'cpu' => $cpu,
-            'mem' => $mem,
-            'memUsage' => $memUsage
-        };
+    # return 0, $json, $result;
+    return 0, $result;
+}
+
+sub container_logs
+{
+    my($container) = @_;
+    my ($result, $fail);
+    my $code = execute_command('docker logs ' . $container, undef, \$result, \$fail, 0, 1);
+
+    if ($code != 0) {
+        return $fail;
     }
 
-    return 0, %results;
+    return 0, $result;
 }
+
 
 sub start_container
 {

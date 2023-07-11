@@ -1,14 +1,18 @@
 #!/usr/bin/perl
-# use strict;
+use strict;
 use warnings;
 use Data::Dumper;
 
 require 'docker-lib.pl';
 
-ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
+ui_print_header(undef, &text('index_title'), "", undef, 1, 1);
 
-@tabs = ( [ 'info', $text{'tab_info'} ],
-            [ 'containers', $text{'tab_containers'} ] );
+if (!&has_command('docker')) {
+    &ui_print_endpage(&text('not_installed'));  #, "<tt>$config{'syslog_conf'}</tt>", "../config.cgi?$module_name"));
+}
+
+my @tabs = ( [ 'info', &text('tab_info') ],
+            [ 'containers', &text('tab_containers') ] );
 
 print ui_tabs_start(\@tabs, 'info', 'containers', 1);
 
@@ -30,7 +34,7 @@ my($stat_fail, %stats) = get_stats();
 if ($fail) {
     print ui_alert_box($fail, 'danger');
 } else {
-    print ui_columns_start([$text{'label_name'}, $text{'label_label'}, $text{'label_runningfor'}, $text{'label_cpu'}, $text{'label_mem'}, ' ' ]);
+    print ui_columns_start([&text('label_name'), &text('label_label'), &text('label_runningfor'), &text('label_cpu'), &text('label_mem'), ' ' ]);
     foreach my $u (@containers) {
         print ui_columns_row([
             html_escape($u->{'name'}),
@@ -38,15 +42,20 @@ if ($fail) {
             html_escape($u->{'status'}),
             html_escape($stats{$u->{'id'}}{'cpu'}),
             html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
-            sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), $text{'command_start'}),
-            sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), $text{'command_stop'}),
-            sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), $text{'command_restart'}),
+            sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start')),
+            sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')),
+            sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart')),
+            &ui_link('logs.cgi?container=' . urlize($u->{'id'}), 'View log'),
+            &ui_link('inspect.cgi?container=' . urlize($u->{'id'}) . '&view=1', 'Inspect container')
         ]);
     }
     print ui_columns_end();
 }
+
 print ui_tabs_end_tab('mode', 'containers');
 
 print ui_tabs_end();
 
-ui_print_footer("/", $text{'index'});
+ui_print_footer("/", &text(('index')));
+
+# if using authentic theme, enable codemirror for readability
