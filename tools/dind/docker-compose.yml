@@ -1,0 +1,8 @@
+version: '3.5'
+name: 'webmin'
+services:
+  webmin:
+    container_name: internal_test
+    privileged: true
+    build:
+      context: ./

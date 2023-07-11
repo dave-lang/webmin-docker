@@ -5,53 +5,48 @@ use Data::Dumper;
 
 require 'docker-lib.pl';
 
-my %text;
-
 ui_print_header(undef, $text{'index_title'}, "", undef, 1, 1);
 
-my($status_fail, @status) = get_status();
+@tabs = ( [ 'info', $text{'tab_info'} ],
+            [ 'containers', $text{'tab_containers'} ] );
+
+print ui_tabs_start(\@tabs, 'info', 'containers', 1);
+
+# INFO TAB
+print ui_tabs_start_tab('mode', 'info');
+my($status_fail, $status) = get_status();
 if ($status_fail) {
-    print ui_alert_box($fail, 'danger');
+    print ui_alert_box($status_fail, 'danger');
 } else {
-    print Dumper($status);
+    print circular_grid($status);  # Ugly recursive output
 }
+print ui_tabs_end_tab('mode', 'info');
 
-
+# CONTAINERS TAB
+print ui_tabs_start_tab('mode', 'containers');
 my($fail, @containers) = get_containers();
 my($stat_fail, %stats) = get_stats();
-# print(get_status());
 
-print Dumper(\%stats);
-
-print ui_subheading($text{'index_containers_title'});
 if ($fail) {
     print ui_alert_box($fail, 'danger');
 } else {
-    print ui_columns_start(['name', 'label', 'running for', ' ', ' ', ' ' ]);
+    print ui_columns_start([$text{'label_name'}, $text{'label_label'}, $text{'label_runningfor'}, $text{'label_cpu'}, $text{'label_mem'}, ' ' ]);
     foreach my $u (@containers) {
-        my $container_stats = \%stats{$u->{'id'}};
         print ui_columns_row([
             html_escape($u->{'name'}),
             html_escape($u->{'image'}),
             html_escape($u->{'status'}),
-            html_escape($container_stats->{'cpu'}),
-            html_escape($container_stats->{'mem'}),
-            "<a href='command.cgi?c=start&container=" . urlize($u->{'name'}) . "'>Start</a>",
-            "<a href='command.cgi?c=stop&container=" . urlize($u->{'name'}) . "'>Stop</a>",
-            "<a href='command.cgi?c=restart&container=" . urlize($u->{'name'}) . "'>Restart</a>",
+            html_escape($stats{$u->{'id'}}{'cpu'}),
+            html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
+            sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), $text{'command_start'}),
+            sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), $text{'command_stop'}),
+            sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), $text{'command_restart'}),
         ]);
     }
     print ui_columns_end();
 }
+print ui_tabs_end_tab('mode', 'containers');
 
-print ui_hr();
-
-print ui_subheading($text{'index_stats_title'});
-
-if ($fail) {
-    print ui_alert_box($stat_fail, 'danger');
-} else {
-    print $stats, "T";
-}
+print ui_tabs_end();
 
 ui_print_footer("/", $text{'index'});

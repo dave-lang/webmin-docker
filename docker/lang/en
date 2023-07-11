@@ -1,5 +1,16 @@
 index_title=Docker container management
-index_containers_title=Containers
-index_stats_title=Stats
+
+tab_info=Docker Info
+tab_containers=Containers
 
 command_err=Command could not be run
+
+label_name=Name
+label_label=Label
+label_runningfor=Running for
+label_cpu=CPU
+label_mem=MEM
+
+command_start=Start
+command_stop=Stop
+command_restart=Restart

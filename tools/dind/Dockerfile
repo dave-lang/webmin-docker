@@ -1,7 +1,5 @@
 FROM ubuntu:18.04
 
-LABEL maintainer="Bibin Wilson <bibinwilsonn@gmail.com>"
-
 RUN apt-get update && \
     apt-get -qy full-upgrade && \
     apt-get install -qy curl && \

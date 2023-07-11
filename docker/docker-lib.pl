@@ -21,8 +21,8 @@ sub get_status {
     }
 
     my $json = decode_json($status);
-    if ($json->{ ServerErrors }) {
-        return $json->{ ServerErrors };
+    if ($json->{ServerErrors}) {
+        return $json->{ServerErrors}[0];
     }
 
     return 0, $json;
@@ -55,25 +55,46 @@ sub get_containers
 sub get_stats
 {
     my ($containers, $fail);
-    my $code = execute_command('docker stats --all --no-stream --format "{{.ID}},{{.CPUPerc}},{{.MemPerc}}"', undef, \$containers, \$fail, 0, 1);
+    my $code = execute_command('docker stats --all --no-stream --format "{{.ID}},{{.CPUPerc}},{{.MemPerc}},{{.MemUsage}}"', undef, \$containers, \$fail, 0, 1);
 
     if ($code != 0) {
         return $fail;
     }
 
-#{"BlockIO":"0B / 0B","CPUPerc":"0.00%","Container":"344327f11366","ID":"344327f11366","MemPerc":"0.00%","MemUsage":"0B / 0B","Name":"objective_dhawan","NetIO":"0B / 0B","PIDs":"0"}
-    # return 0, $containers;
+    my %results = ( );
+    my @containers = split(/\n/, $containers);
+
+    foreach my $u (@containers) {
+        my ($id, $cpu, $mem, $memUsage) = split(/,/, $u);
+        $results{$id} = {
+            'cpu' => $cpu,
+            'mem' => $mem,
+            'memUsage' => $memUsage
+        };
+    }
+
+    return 0, %results;
+}
+
+sub inspect_container
+{
+    my ($containers, $fail);
+    my $code = execute_command('docker inspect --all --no-stream --format "{{.ID}},{{.CPUPerc}},{{.MemPerc}},{{.MemUsage}}"', undef, \$containers, \$fail, 0, 1);
+
+    if ($code != 0) {
+        return $fail;
+    }
 
     my %results = ( );
     my @containers = split(/\n/, $containers);
 
     foreach my $u (@containers) {
-        my ($id, $cpu, $mem) = split(/,/, $u);
+        my ($id, $cpu, $mem, $memUsage) = split(/,/, $u);
         $results{$id} = {
             'cpu' => $cpu,
-            'mem' => $mem
+            'mem' => $mem,
+            'memUsage' => $memUsage
         };
-        # $results{$id} = $id;
     }
 
     return 0, %results;
@@ -98,4 +119,23 @@ sub restart_container
     my($container) = @_;
     my ($output, $fail);
     execute_command('docker restart ' . $container, undef, \$output, \$fail, 0, 1);
+}
+
+sub circular_grid
+{
+    my($statsRaw, $depth) = @_;
+    $depth ||= 1;
+
+    my @stats;
+    foreach my $field ( keys %{$statsRaw}) {
+        if (ref $statsRaw->{$field} eq ref {}) {  # If hash down the rabbit hole we go
+            push (@stats, sprintf("<b>%s</b>: %s", $field, circular_grid($statsRaw->{$field}, $depth + 1)));
+        } elsif (ref $statsRaw->{$field} eq 'ARRAY') {  # Make the brave assumption we can flatten and join the array
+            push (@stats, sprintf("<b>%s</b>: %s<br />", $field, join(",", @{$statsRaw->{$field}})));
+        } else {  # If hash down the rabbit hole we go
+            push (@stats, sprintf("<b>%s</b>: %s<br />", $field, $statsRaw->{$field} ||= "N/A"));
+        }
+    }
+
+    return ui_grid_table(\@stats, $depth == 1 ? 2 : 1);
 }
