@@ -20,9 +20,6 @@ jobs:
       contents: write
 
     steps:
-      - name: "Determine tag"
-        run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
-
       - uses: actions/checkout@master
       - name: Compress action step
         uses: a7ul/tar-action@v1.1.0
@@ -38,7 +35,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "docker.wbm.gz"
-          tag: process.env.RELEASE_TAG
+          tag: ${{ github.ref_name }}
           prerelease: true
           draft: true
           generateReleaseNotes: true
