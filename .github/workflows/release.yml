@@ -25,9 +25,8 @@ jobs:
         id: compress
         with:
           command: c
-          cwd: ./docker
           files: |
-            ./*
+            ./docker
           outPath: docker.wbm.gz
 
       # https://github.com/marketplace/actions/create-release
