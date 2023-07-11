@@ -1,0 +1,42 @@
+# Sync changes to translations
+name: Package release
+
+on: # yamllint disable-line rule:truthy
+  push:
+    tags:
+    - "**"
+
+# Workflow jobs
+jobs:
+  # One job
+  release:
+    name: "Release"
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Determine tag"
+        run: "echo \"RELEASE_TAG=${GITHUB_REF#refs/tags/}\" >> $GITHUB_ENV"
+
+      - uses: actions/checkout@master
+      - name: Compress action step
+        uses: a7ul/tar-action@v1.1.0
+        id: compress
+        with:
+          command: c
+          cwd: ./docker
+          files: |
+            ./*
+          outPath: docker.wbm.gz
+
+      # https://github.com/marketplace/actions/create-release
+      - name: "Upload release"
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "docker.wbm.gz"
+          bodyFile: "body.md"
+          tag: process.env.RELEASE_TAG
+          prerelease: true
+          draft: true
+          generateReleaseNotes: true
