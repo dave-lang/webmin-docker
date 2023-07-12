@@ -1,9 +1,14 @@
-index_title=Docker container management
 not_installed=Docker was not found on this system
+
+index_title=Docker container management
 index_return=container list
+
+view_container_title=Container $1
 
 tab_info=Docker Info
 tab_containers=Containers
+tab_log=Log
+tab_inspect=Inspect
 
 command_err=Command could not be run
 

@@ -1,25 +1,30 @@
 #!/usr/bin/perl
+use strict;
+use warnings;
 
 require './docker-lib.pl';
-ui_print_header(undef, &text('index_title'), "", undef, 1, 1);
+#ui_print_header(undef, &text('index_title'), "", undef, 1, 1);
 &ReadParse();
-&error_setup($text{'command_err'});
+&error_setup(text('command_err'));
 
-$command = $in{'c'};
+our (%in);
 
+my $command = $in{'c'};
+
+my $err;
 if ($command == 'start') {
-    start_container($in{'container'});
+    $err = container_command($in{'container'}, 'start');
 }
 
 if ($command == 'stop') {
-    stop_container($in{'container'});
+    $err = container_command($in{'container'}, 'stop');
 }
 
 if ($command == 'restart') {
-    restart_container($in{'container'})
+   $err = container_command($in{'container'}, 'restart')
 }
 
-#&error($err) if ($err);
+&error($err) if ($err);
 
 &webmin_log(ucfirst($command), 'docker container', $in{'container'});
 &redirect("");

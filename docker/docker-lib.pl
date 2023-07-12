@@ -11,34 +11,49 @@ use JSON::PP;
 
 init_config();
 
-sub get_status {
-    my $fail;
-    my $status = "{}";
-    my $code = execute_command('docker info --format "{{json .}}"', undef, \$status, \$fail, 0, 1);
+sub docker_command {
+    my($command, $format, $safe) = @_;
+    $format ||= "";
+    $safe ||= 1;
+
+    if ($format) {
+        $format = ' --format "' . $format . '"'
+    }
+
+    my ($result, $fail);
+    my $code = execute_command('docker ' . $command . $format, undef, \$result, \$fail, 0, $safe);
 
     if ($code != 0) {
-        return $fail;
+        return $code, $fail;
     }
 
-    my $json = decode_json($status);
-    if ($json->{ServerErrors}) {
-        return $json->{ServerErrors}[0];
+    return 0, $result
+}
+
+
+sub get_status {
+    my ($code, $result) = docker_command('info');
+    if ($code != 0) {
+        return $result;
     }
 
-    return 0, $json;
+    # my $json = decode_json($result);
+    # if ($json->{ServerErrors}) {
+    #     return $json->{ServerErrors}[0];
+    # }
+
+    return 0, $result;
 }
 
 sub get_containers
 {
-    my ($containers, $fail);
-    my $code = execute_command('docker container ls --all --format {{.ID}},{{.Names}},{{.Image}},{{.Status}}', undef, \$containers, \$fail, 0, 1);
-
+    my ($code, $result) = docker_command('container ls --all ', '{{.ID}},{{.Names}},{{.Image}},{{.Status}}');
     if ($code != 0) {
-        return $fail;
+        return $result;
     }
 
     my @results;
-    my @containers = split(/\n/, $containers);
+    my @containers = split(/\n/, $result);
     foreach my $u (@containers) {
         my ($id, $name, $image, $status) = split(/,/, $u);
         push (@results, {
@@ -54,15 +69,13 @@ sub get_containers
 
 sub get_stats
 {
-    my ($containers, $fail);
-    my $code = execute_command('docker stats --all --no-stream --format "{{.ID}},{{.CPUPerc}},{{.MemPerc}},{{.MemUsage}}"', undef, \$containers, \$fail, 0, 1);
-
+    my ($code, $result) = docker_command('stats --all --no-stream', '{{.ID}},{{.CPUPerc}},{{.MemPerc}},{{.MemUsage}}');
     if ($code != 0) {
-        return $fail;
+        return $result;
     }
 
     my %results = ( );
-    my @containers = split(/\n/, $containers);
+    my @containers = split(/\n/, $result);
 
     foreach my $u (@containers) {
         my ($id, $cpu, $mem, $memUsage) = split(/,/, $u);
@@ -79,56 +92,40 @@ sub get_stats
 sub inspect_container
 {
     my($container) = @_;
-    my ($result, $fail);
-    # my $code = execute_command('docker inspect ' . $container . ' --format "{{json .}}"', undef, \$result, \$fail, 0, 1);
-    my $code = execute_command('docker inspect ' . $container, undef, \$result, \$fail, 0, 1);
-
+    my ($code, $result) = docker_command('inspect ' . $container . ' --type=container --size');
     if ($code != 0) {
-        return $fail;
+        return $result;
     }
-
-    # my $json = decode_json($result);
-    # if ($json->{ServerErrors}) {
-    #     return $json->{ServerErrors}[0];
-    # }
-
-    # return 0, $json, $result;
+    
     return 0, $result;
 }
 
 sub container_logs
 {
     my($container) = @_;
-    my ($result, $fail);
-    my $code = execute_command('docker logs ' . $container, undef, \$result, \$fail, 0, 1);
-
+    my ($code, $result) = docker_command('logs ' . $container);
     if ($code != 0) {
-        return $fail;
+        return $result;
     }
 
     return 0, $result;
 }
 
 
-sub start_container
+sub container_command
 {
-    my($container) = @_;
-    my ($output, $fail);
-    execute_command('docker start ' . $container, undef, \$output, \$fail, 0, 1);
-}
+    my($container, $command) = @_;
 
-sub stop_container
-{
-    my($container) = @_;
-    my ($output, $fail);
-    execute_command('docker stop ' . $container, undef, \$output, \$fail, 0, 1);
-}
+    if (!($command !~~ ['start', 'stop', 'restart'])) {
+        return "Command not allowed";
+    }
+    
+    my ($code, $result) = docker_command($command . ' ' . $container);
+    if ($code != 0) {
+        return $result;
+    }
 
-sub restart_container
-{
-    my($container) = @_;
-    my ($output, $fail);
-    execute_command('docker restart ' . $container, undef, \$output, \$fail, 0, 1);
+    return $result;
 }
 
 sub circular_grid
@@ -136,16 +133,25 @@ sub circular_grid
     my($statsRaw, $depth) = @_;
     $depth ||= 1;
 
+   print  Dumper($statsRaw);
+    my $result = ui_table_start($depth > 1 ? "" : "Info");
+
     my @stats;
     foreach my $field ( keys %{$statsRaw}) {
         if (ref $statsRaw->{$field} eq ref {}) {  # If hash down the rabbit hole we go
-            push (@stats, sprintf("<b>%s</b>: %s", $field, circular_grid($statsRaw->{$field}, $depth + 1)));
+            $result = $result . ui_table_hr() . ui_table_span($field);
+            $result = $result . ui_table_span(circular_grid($statsRaw->{$field}, $depth + 1));
+            #push (@stats, sprintf("<b>%s</b>: %s", $field, circular_grid($statsRaw->{$field}, $depth + 1)));
         } elsif (ref $statsRaw->{$field} eq 'ARRAY') {  # Make the brave assumption we can flatten and join the array
-            push (@stats, sprintf("<b>%s</b>: %s<br />", $field, join(",", @{$statsRaw->{$field}})));
+            $result = $result . ui_table_row($field . "(ARR)", join(",", @{$statsRaw->{$field}})); #, [cols], [&td-tags])
+            # push (@stats, sprintf("<b>%s</b>: %s<br />", $field, join(",", @{$statsRaw->{$field}})));
         } else {  # If hash down the rabbit hole we go
-            push (@stats, sprintf("<b>%s</b>: %s<br />", $field, $statsRaw->{$field} ||= "N/A"));
+            $result = $result . ui_table_row($field, $statsRaw->{$field} eq "" ? "[N/A]" : $statsRaw->{$field}); #, [cols], [&td-tags])
+            #push (@stats, sprintf("<b>%s</b>: %s<br />", $field, $statsRaw->{$field} ||= "N/A"));
         }
     }
+    $result = $result . ui_table_end();
 
-    return ui_grid_table(\@stats, $depth == 1 ? 2 : 1);
+    # return ui_grid_table(\@stats, 1);
+    return $result;
 }
