@@ -16,6 +16,6 @@ This environment has webmin and docker already installed, along with a very basi
 
 Use `docker exec -it webmin_master /bin/bash` to get a SSH console.
 
-Docker will not be running by default, use `dockerd` to run it, Ctrl+C to stop.
-
-To setup the test DinD container
+Docker will not be running by default, use `dockerd` to run it, Ctrl+C to stop. Start the internal container via:
+1. `cd dind`
+2. `docker-compose up -d`

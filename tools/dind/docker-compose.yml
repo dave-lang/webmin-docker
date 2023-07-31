@@ -1,8 +1,7 @@
 version: '3.5'
-name: 'webmin'
 services:
   webmin:
-    container_name: internal_test
-    privileged: true
-    build:
-      context: ./
+    container_name: ubuntu
+    image: ubuntu:18.04
+    restart: on-failure
+    command: ["sleep","infinity"]
