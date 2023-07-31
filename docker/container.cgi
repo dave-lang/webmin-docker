@@ -11,8 +11,15 @@ our (%in);
 my $container = $in{'container'};
 my $tab = $in{'tab'};
 
-ui_print_header(undef, text('view_container_title', $container), "", undef, undef, $in{'nonavlinks'});
+my ($code, $container_name) = get_container_attr($container, 'Name');
+if ($code) {  # Bad container id
+    ui_print_header(undef, text('view_container_title', "not found"), "", undef, undef, $in{'nonavlinks'});
+    &ui_print_endpage(ui_alert_box($code, 'danger'), "Back", "/");
+}
 
+# Trim leading /
+$container_name = substr $container_name, 1;
+ui_print_header(undef, text('view_container_title', $container_name), "", undef, undef, $in{'nonavlinks'});
 
 my @tabs = ( [ 'log', &text('tab_log') ],
             [ 'inspect', &text('tab_inspect') ] );

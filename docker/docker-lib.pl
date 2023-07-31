@@ -67,6 +67,18 @@ sub get_containers
     return 0, @results;
 }
 
+sub get_container_attr
+{
+    my($container, $attr) = @_;
+    my ($code, $result) = docker_command('inspect --type=container ' . $container, '{{.' . $attr . '}}');
+    if ($code != 0) {
+        print "Bang";
+        return $result;
+    }
+
+    return 0, $result;
+}
+
 sub get_stats
 {
     my ($code, $result) = docker_command('stats --all --no-stream', '{{.ID}},{{.CPUPerc}},{{.MemPerc}},{{.MemUsage}}');
