@@ -4,6 +4,12 @@ Created to manage a local Docker install for a home server. Allows listing of co
 
 It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing.
 
+## Install
+
+The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and the latest `docker.tar.gz` release package from https://github.com/dave-lang/webmin-docker/releases.
+
+Alternatively you can download and install it directly or build manually, the packaging steps are in the GitHub action in the repo.
+
 ## Development
 
 Docker configuration has been setup to allow easier development.
