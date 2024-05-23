@@ -167,3 +167,26 @@ sub circular_grid
     # return ui_grid_table(\@stats, 1);
     return $result;
 }
+
+sub starts_with
+{
+    my ($str, $prefix) = @_;
+    return substr($str, 0, length($prefix)) eq $prefix;
+}
+
+sub get_container_up
+{
+    my ($status) = @_;
+    return starts_with($status, "Up ");
+}
+
+sub get_status_icon
+{
+    my ($status) = @_;
+
+    my ($up) = get_container_up($status);
+    my ($color) = $up ? 'green' : 'red';
+
+    return '<span style="font-weight: bold; font-size: 140%; color: ' . $color . '; float: left; padding-right: 10px">' 
+        . ($up ? "&check;" : "&cross;") . '</span>';
+}

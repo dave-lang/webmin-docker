@@ -7,8 +7,6 @@ services:
     build:
       context: ./
     volumes:
-      #- ../nut/:/etc/webmin/nut:rw
-      #- ../pihole:/etc/webmin/pihole:rw
       - ../docker:/usr/share/webmin/docker:rw
       - ./dind:/home/dind:rw
     ports:
