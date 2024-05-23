@@ -10,6 +10,8 @@ The fastest way to install is to follow the "Http URL" method (https://webmin.co
 
 Alternatively you can download and install it directly or build manually, the packaging steps are in the GitHub action in the repo.
 
+Once installed a new option 'Docker Containers' will appear in the menu under 'Servers'.
+
 ## Development
 
 Docker configuration has been setup to allow easier development.

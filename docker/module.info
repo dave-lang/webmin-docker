@@ -1,4 +1,4 @@
-desc=Docker container management
+desc=Docker Containers
 os_support=*-linux
 category=servers
 longdesc=View and perform basic actions on docker containers on the host
