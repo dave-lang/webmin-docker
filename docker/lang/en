@@ -14,6 +14,7 @@ command_err=Command could not be run
 
 label_name=Name
 label_label=Label
+label_running=Running
 label_runningfor=Running for
 label_cpu=CPU
 label_mem=MEM

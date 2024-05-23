@@ -39,16 +39,30 @@ if ($fail) {
     print &ui_submit(text('label_refresh'));
     print &ui_form_end(),"<br>\n";
 
-    print ui_columns_start([&text('label_name'), &text('label_label'), &text('label_runningfor'), &text('label_cpu'), &text('label_mem'), ' ' ]);
+    print '<style>.panel-body tr td { padding: 5px 22px 7px 22px !important} </style>';
+    print ui_columns_start([
+        &text('label_name'), 
+        &text('label_label'), 
+        &text('label_running'), 
+        &text('label_runningfor'), 
+        &text('label_cpu'), 
+        &text('label_mem'), 
+        ' ' 
+    ]);
+    
     foreach my $u (@containers) {
+        my ($status) = $u->{'status'};
+
         print ui_columns_row([
             html_escape($u->{'name'}),
             html_escape($u->{'image'}),
-            html_escape($u->{'status'}),
+            get_status_icon($status),
+            html_escape($status),
             html_escape($stats{$u->{'id'}}{'cpu'}),
             html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
-            sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start')),
-            sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')),
+            get_container_up($status) ? 
+                sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')) 
+                : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start')),
             sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart')),
             &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), 'View log'),
             &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), 'Inspect')

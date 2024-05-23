@@ -16,11 +16,16 @@ Once installed a new option 'Docker Containers' will appear in the menu under 'S
 
 Docker configuration has been setup to allow easier development.
 
-This environment has webmin and docker already installed, along with a very basic Ubuntu 18 docker config ready to start in the container (Docker in Docker).
+This environment has Webmin and Docker already installed, along with a very basic Ubuntu 18 docker config ready to start in the container (Docker in Docker).
+
+The plugin is installed in the Webmin environment via shared folder, changes will appear immediately.
 
 1. `cd tools`
 2. `docker-compose up -d` to run docker compose as daemon
 3. Open http://localhost:10000 to access the webmin console
+4. Login is `root` + `password`, this can be adjusted in the Dockerfile
+
+To burn and recreate the environment use `docker-compose down -v`
 
 Use `docker exec -it webmin_master /bin/bash` to get a SSH console.
 
