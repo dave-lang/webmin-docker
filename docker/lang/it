@@ -1,0 +1,25 @@
+not_installed=Docker non è stato trovato su questo sistema
+
+index_title=Contenitori Docker
+index_return=conta elenco contenitori
+
+view_container_title=$1 contenitori
+
+tab_info=Informazioni sulla Docker
+tab_containers=Contenitori
+tab_log=Registro
+tab_inspect=Ispezionare
+
+command_err=Impossibile eseguire il comando
+
+label_name=Nome
+label_label=Etichetta
+label_running=Corsa
+label_runningfor=Tempo di esecuzione
+label_cpu=CPU
+label_mem=MEM
+
+label_start=Inizio
+label_stop=Fermare
+label_restart=Ricomincia
+label_refresh=Ricaricare
