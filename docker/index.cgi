@@ -39,43 +39,62 @@ if ($fail) {
     print &ui_submit(text('label_refresh'));
     print &ui_form_end(),"<br>\n";
 
-    print '<style>.panel-body tr td { padding: 5px 22px 7px 22px !important} </style>';
+    print '<style>.panel-body tr td { padding: 5px 10px 7px 10px !important} </style>';
+    
     print &ui_columns_start([
         &text('label_name'), 
-        &text('label_label'), 
-        &text('label_running'), 
+        &text('label_label'),
         &text('label_runningfor'), 
         &text('label_cpu'), 
         &text('label_mem'), 
         ' ',
-        ' '
+    ], undef, 0, [
+        "",
+        "class='hidden-xs hidden-sm'",
+        "class='hidden-xs hidden-sm hidden-md'",
+        "",
+        "class='hidden-xs hidden-sm'",
+        "class='hidden-xs'",
+        "class='hidden-xs'"
     ]);
     
     foreach my $u (@containers) {
         my ($status) = $u->{'status'};
 
         print ui_columns_row([
-            &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), html_escape($u->{'name'})),
+            &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), html_escape($u->{'name'})) . "<span class='display-none visible-xs visible-sm'>" . html_escape($u->{'image'}) . "</span>",
             html_escape($u->{'image'}),
-            get_status_icon($status),
-            html_escape($status),
+            get_status_icon($status) . " " . html_escape($status),
             html_escape($stats{$u->{'id'}}{'cpu'}),
-            "26.09MiB / 30.47GiB (0.08%)",
-            #html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
-            get_container_up($status) ? 
+            "<span class='display-none visible-xs visible-sm'>CPU: " . html_escape($stats{$u->{'id'}}{'cpu'}) . "<br /></span>" 
+                . html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
+            (get_container_up($status) ? 
                 sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')) . ' | ' . sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart'))
-                : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start')),
-            &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog'))
+                : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start'))) . ' | ' .
+                &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog'))
         ], [
             "", # name
-            "", #image
-            "style='width:75px; white-space: nowrap'", #status
+            "class='hidden-xs hidden-sm'", #image
             "", # time
-            "style='width:100px; white-space: nowrap'", #CPU
-            "style='min-width: 150px'", #MEM
-            "style='width: 125px; white-space: nowrap'", #start/stop/restart
-            "style='width: 100px; white-space: nowrap'", #log
+            "style='width:100px; white-space: nowrap' class='hidden-xs hidden-sm'", #CPU
+            "style='min-width: 150px' class='hidden-xs'", #MEM
+            "style='text-align: right; word-break: auto-phrase;' class='hidden-xs text-right'", #start/stop/restart
         ]);
+
+        print ui_columns_row([
+            "CPU: " . html_escape($stats{$u->{'id'}}{'cpu'}) . "<br />MEM: " 
+                . html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
+            (get_container_up($status) ? 
+                sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')) . ' | ' . sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart'))
+                : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start'))) . ' | ' .
+                &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog'))
+        ], [
+            "class='display-none visible-xs'",
+            "style='word-break: auto-phrase;' class='display-none visible-xs'", #start/stop/restart
+        ]);
+
+        
+
     }
     print ui_columns_end();
 }

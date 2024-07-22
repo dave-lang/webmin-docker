@@ -4,7 +4,7 @@ Created to manage a local Docker install for a home server. Allows listing of co
 
 It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing.
 
-Currently translated to English, Italian and Polish.
+Currently translated to English, Italian and Polish. UI is responsive across all device sizes.
 
 ## Install
 
