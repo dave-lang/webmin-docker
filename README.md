@@ -8,9 +8,9 @@ Currently translated to English, Italian and Polish.
 
 ## Install
 
-The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and the latest `docker.tar.gz` release package from https://github.com/dave-lang/webmin-docker/releases.
+The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and use the latest release package using [https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz](https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz).
 
-Alternatively you can download and install it directly or build manually, the packaging steps are in the GitHub action in the repo.
+Alternatively you can download and install it directly from the [releases page](https://github.com/dave-lang/webmin-docker/releases) or it build manually, the packaging steps are in the GitHub action in the repo.
 
 Once installed a new option 'Docker Containers' will appear in the menu under 'Servers'.
 
