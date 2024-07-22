@@ -49,18 +49,18 @@ if ($fail) {
         &text('label_mem'), 
         ' ',
     ], undef, 0, [
-        "",
-        "class='hidden-xs hidden-sm'",
-        "class='hidden-xs hidden-sm hidden-md'",
-        "",
-        "class='hidden-xs hidden-sm'",
-        "class='hidden-xs'",
-        "class='hidden-xs'"
+        "", # name
+        "class='hidden-xs hidden-sm'", #image
+        "", # running
+        "class='hidden-xs hidden-sm'", # CPU
+        "class='hidden-xs'", # MEM
+        "class='hidden-xs'" # actions
     ]);
     
     foreach my $u (@containers) {
         my ($status) = $u->{'status'};
 
+        # columns will be consolidated/hidden across various screen sizes
         print ui_columns_row([
             &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), html_escape($u->{'name'})) . "<span class='display-none visible-xs visible-sm'>" . html_escape($u->{'image'}) . "</span>",
             html_escape($u->{'image'}),
@@ -76,11 +76,12 @@ if ($fail) {
             "", # name
             "class='hidden-xs hidden-sm'", #image
             "", # time
-            "style='width:100px; white-space: nowrap' class='hidden-xs hidden-sm'", #CPU
-            "style='min-width: 150px' class='hidden-xs'", #MEM
+            "class='hidden-xs hidden-sm'", #CPU
+            "class='hidden-xs'", #MEM
             "style='text-align: right; word-break: auto-phrase;' class='hidden-xs text-right'", #start/stop/restart
         ]);
 
+        # This row is shown on xs-devices only
         print ui_columns_row([
             "CPU: " . html_escape($stats{$u->{'id'}}{'cpu'}) . "<br />MEM: " 
                 . html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
@@ -89,7 +90,7 @@ if ($fail) {
                 : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start'))) . ' | ' .
                 &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog'))
         ], [
-            "class='display-none visible-xs'",
+            "class='display-none visible-xs'", # Perf
             "style='word-break: auto-phrase;' class='display-none visible-xs'", #start/stop/restart
         ]);
 
