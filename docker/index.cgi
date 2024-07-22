@@ -40,32 +40,41 @@ if ($fail) {
     print &ui_form_end(),"<br>\n";
 
     print '<style>.panel-body tr td { padding: 5px 22px 7px 22px !important} </style>';
-    print ui_columns_start([
+    print &ui_columns_start([
         &text('label_name'), 
         &text('label_label'), 
         &text('label_running'), 
         &text('label_runningfor'), 
         &text('label_cpu'), 
         &text('label_mem'), 
-        ' ' 
+        ' ',
+        ' '
     ]);
     
     foreach my $u (@containers) {
         my ($status) = $u->{'status'};
 
         print ui_columns_row([
-            html_escape($u->{'name'}),
+            &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), html_escape($u->{'name'})),
             html_escape($u->{'image'}),
             get_status_icon($status),
             html_escape($status),
             html_escape($stats{$u->{'id'}}{'cpu'}),
-            html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
+            "26.09MiB / 30.47GiB (0.08%)",
+            #html_escape($stats{$u->{'id'}}{'memUsage'}) . " (" . html_escape($stats{$u->{'id'}}{'mem'}) . ")",
             get_container_up($status) ? 
-                sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')) 
+                sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')) . ' | ' . sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart'))
                 : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start')),
-            sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart')),
-            &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog')),
-            &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), &text('label_inspect'))
+            &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog'))
+        ], [
+            "", # name
+            "", #image
+            "style='width:75px; white-space: nowrap'", #status
+            "", # time
+            "style='width:100px; white-space: nowrap'", #CPU
+            "style='min-width: 150px'", #MEM
+            "style='width: 125px; white-space: nowrap'", #start/stop/restart
+            "style='width: 100px; white-space: nowrap'", #log
         ]);
     }
     print ui_columns_end();

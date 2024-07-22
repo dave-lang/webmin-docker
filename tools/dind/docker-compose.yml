@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   webmin:
-    container_name: ubuntu
-    image: ubuntu:18.04
+    container_name: alpine
+    image: alpine:latest
     restart: on-failure
     command: ["sleep","infinity"]
