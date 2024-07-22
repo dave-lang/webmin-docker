@@ -23,3 +23,5 @@ label_start=Inizio
 label_stop=Fermare
 label_restart=Ricomincia
 label_refresh=Ricaricare
+label_inspect=Ispezionare
+label_viewlog=Vista del registro

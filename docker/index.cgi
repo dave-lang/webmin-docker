@@ -64,8 +64,8 @@ if ($fail) {
                 sprintf("<a href='command.cgi?c=stop&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_stop')) 
                 : sprintf("<a href='command.cgi?c=start&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_start')),
             sprintf("<a href='command.cgi?c=restart&container=%s'>%s</a>", urlize($u->{'name'}), &text('label_restart')),
-            &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), 'View log'),
-            &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), 'Inspect')
+            &ui_link('container.cgi?tab=log&container=' . urlize($u->{'id'}), &text('label_viewlog')),
+            &ui_link('container.cgi?tab=inspect&container=' . urlize($u->{'id'}), &text('label_inspect'))
         ]);
     }
     print ui_columns_end();

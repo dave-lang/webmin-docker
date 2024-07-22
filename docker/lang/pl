@@ -23,3 +23,5 @@ label_start=Start
 label_stop=Stop
 label_restart=Restart
 label_refresh=Odświerz
+label_inspect=Sprawdzać
+label_viewlog=Zobacz dziennik
