@@ -19,8 +19,8 @@ label_runningfor=Uruchomione od
 label_cpu=Procesor
 label_mem=Pamięć
 
-label_start=Początek
-label_stop=Zatrzymywać się
+label_start=Uruchom
+label_stop=Stop
 label_restart=Uruchom ponownie
 label_refresh=Odświerz
 label_viewlog=Zobacz dziennik
