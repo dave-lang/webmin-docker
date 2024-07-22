@@ -1,4 +1,4 @@
 name=Kontenery Dockera
 category=servers
-desc=Wyświetl kontenery dokowane
-longdesc=Wyświetlaj i wykonuj podstawowe czynności na kontenerach dokowanych na hoście
+desc=Wyświetl kontenery dokera
+longdesc=Wyświetlaj i wykonuj podstawowe czynności na kontenerach dokera na tym hoście.
