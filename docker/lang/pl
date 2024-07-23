@@ -1,6 +1,6 @@
 not_installed=Nie znaleźono dokera na systemie
 
-index_title=Zażądzanie kontenerami Dokera
+index_title=Zarządzanie kontenerami Dokera
 index_return=lista kontenerów
 
 view_container_title=kontener $1
