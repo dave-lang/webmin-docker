@@ -4,16 +4,26 @@ Created to manage a local Docker install for a home server. Allows listing of co
 
 It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing.
 
+Currently translated to English, Italian and Polish. UI is responsive across all device sizes.
+
 ## Install
 
-The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and the latest `docker.tar.gz` release package from https://github.com/dave-lang/webmin-docker/releases.
+The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and use the latest release package using [https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz](https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz).
 
-Alternatively you can download and install it directly or build manually, the packaging steps are in the GitHub action in the repo.
+Alternatively you can download and install it directly from the [releases page](https://github.com/dave-lang/webmin-docker/releases) or it build manually, the packaging steps are in the GitHub action in the repo.
 
 Once installed a new option 'Docker Containers' will appear in the menu under 'Servers'.
-![image](https://github.com/dave-lang/webmin-docker/assets/141998/0fe3bc90-39ac-447a-883e-bfa7c43f9ebe)
 
-## Contibuting
+### Container listing/actions
+![image](https://github.com/user-attachments/assets/e4eeda35-1800-48d5-8b15-b498f7305311)
+
+### Container inspection
+![image](https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36)
+
+### Host docker information
+![image](https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc)
+
+## Contributing
 
 Improvements or fixes are welcome, please raise it under issues and link to your branch.
 

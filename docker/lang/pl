@@ -1,6 +1,6 @@
 not_installed=Nie znaleźono dokera na systemie
 
-index_title=Zażądzanie kontenerami Dokera
+index_title=Zarządzanie kontenerami Dokera
 index_return=lista kontenerów
 
 view_container_title=kontener $1
@@ -19,7 +19,8 @@ label_runningfor=Uruchomione od
 label_cpu=Procesor
 label_mem=Pamięć
 
-label_start=Start
+label_start=Uruchom
 label_stop=Stop
-label_restart=Restart
+label_restart=Uruchom ponownie
 label_refresh=Odświerz
+label_viewlog=Zobacz dziennik

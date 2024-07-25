@@ -23,3 +23,4 @@ label_start=Start
 label_stop=Stop
 label_restart=Restart
 label_refresh=Refresh
+label_viewlog=View log
