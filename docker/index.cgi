@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 
-require 'docker-lib.pl';
+require './docker-lib.pl';
 
 ui_print_header(undef, &text('index_title'), "", undef, undef, 1);
 

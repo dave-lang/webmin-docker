@@ -34,6 +34,7 @@ RUN echo root:password | chpasswd && \
     apt-get install -y webmin && \
     apt-get clean && \
     echo "$(cat /etc/webmin/webmin.acl) docker" > /etc/webmin/webmin.acl
+# Last line adds docker module to webmin's acl, for easier development. Also requires the volume config
 
 EXPOSE 10000
 ENV LC_ALL C.UTF-8
