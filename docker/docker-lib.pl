@@ -132,12 +132,14 @@ sub container_command
         return "Command not allowed";
     }
     
-    my ($code, $result) = docker_command($command . ' ' . $container);
+    my ($code, $result) = docker_command('container ' . $command . ' ' . $container);
     if ($code != 0) {
+        &webmin_log('Failed ' . $command, 'docker container', $in{'container'});
         return $result;
     }
 
-    return $result;
+    &webmin_log(ucfirst($command), 'docker container', $in{'container'});
+    return "" # successful commands only return the container name
 }
 
 sub circular_grid

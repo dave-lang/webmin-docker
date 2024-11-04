@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 require './docker-lib.pl';
-#ui_print_header(undef, &text('index_title'), "", undef, 1, 1);
+
 &ReadParse();
 &error_setup(text('command_err'));
 
@@ -26,5 +26,4 @@ if ($command == 'restart') {
 
 &error($err) if ($err);
 
-&webmin_log(ucfirst($command), 'docker container', $in{'container'});
 &redirect("");
