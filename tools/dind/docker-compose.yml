@@ -1,7 +1,5 @@
 version: '3.5'
 services:
   webmin:
-    container_name: alpine
-    image: alpine:latest
-    restart: on-failure
-    command: ["sleep","infinity"]
+    container_name: syslog_appliance_alpine
+    image: rsyslog/syslog_appliance_alpine
