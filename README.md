@@ -6,6 +6,8 @@ It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing.
 
 Currently translated to English, Italian and Polish. UI is responsive across all device sizes.
 
+If you're after a full Docker web interface you should consider https://www.portainer.io or https://yacht.sh.
+
 ## Install
 
 The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and use the latest release package using [https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz](https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz).
@@ -33,7 +35,9 @@ Docker configuration has been setup to allow easier development.
 
 This environment has Webmin and Docker already installed, along with a very basic Ubuntu 18 docker config ready to start in the container (Docker in Docker).
 
-The plugin is installed in the Webmin environment via shared folder, changes will appear immediately.
+The plugin is installed in the Webmin environment via shared folder, changes will appear immediately. This is done via:
+- Sharing the ./docker directory into webmin directory using Docker volume (see docker-compose.yml)
+- Adding the ACL permission for the module via the Dockerfile
 
 1. `cd tools`
 2. `docker-compose up -d` to run docker compose as daemon

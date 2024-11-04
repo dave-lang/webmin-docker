@@ -7,7 +7,7 @@ services:
     build:
       context: ./
     volumes:
-      - ../docker:/usr/share/webmin/docker:rw
+      - ../docker:/usr/share/webmin/docker:rw # This also requires the ACL permission to load in Webmin, see dockerfile
       - ./dind:/home/dind:rw
     ports:
       - "10000:10000"
