@@ -114,8 +114,13 @@ sub inspect_container
 
 sub container_logs
 {
-    my($container) = @_;
-    my ($code, $result) = docker_command('logs ' . $container);
+    my($container, $max_lines) = @_;
+
+    my ($result, $fail, $code);
+    my ($maxCommand) = ' -n ' . $max_lines;
+    
+    my ($code, $result) = docker_command('logs ' . $container . $maxCommand);
+    
     if ($code != 0) {
         return $result;
     }
