@@ -114,18 +114,42 @@ sub inspect_container
 
 sub container_logs
 {
-    my($container, $max_lines) = @_;
+    my($container, $max_lines, $filter, $basic_match) = @_;
+    our (%gconfig);
 
-    my ($result, $fail, $code);
     my ($maxCommand) = ' -n ' . $max_lines;
-    
-    my ($code, $result) = docker_command('logs ' . $container . $maxCommand);
-    
-    if ($code != 0) {
-        return $result;
-    }
 
-    return 0, $result;
+    if (length $filter) {
+        my ($result, $fail, $code);
+		# Are we supposed to filter anything? Then use grep.
+		my $docker_command = "docker logs $container " . $maxCommand;
+		my $eflag = $gconfig{'os_type'} =~ /-linux/ ? "-E" : "";
+		my $dashflag = $gconfig{'os_type'} =~ /-linux/ ? "--" : "";
+
+        my $flags = $basic_match == 1 ? ' -F ' : '-i -a ' . $eflag . ' ' . $dashflag;
+	
+        $code = execute_command(
+            $docker_command . ' | grep '. $flags . ' "' . $filter . '"', 
+            undef, \$result, \$fail, 0, 1);
+
+        if ($code == 256) { # No results?
+            return 0, "No matching logs found, try increasing max lines, escaping or ignoring special characters";
+        }
+
+        if ($code != 0) {
+            return $code, "Failed to search logs: " . $fail;
+        }
+
+        return 0, $result;
+	} else {
+        my ($code, $result) = docker_command('logs ' . $container . $maxCommand);
+
+        if ($code != 0) {
+            return $code, $result;
+        }
+
+        return 0, $result;
+    }
 }
 
 

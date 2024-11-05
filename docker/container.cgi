@@ -29,60 +29,64 @@ print ui_tabs_start(\@tabs, 'log', $tab, 1);
 # LOGS TAB
 my ($max_lines) = $in{'max-lines'} || 50;
 print ui_tabs_start_tab('mode', 'log');
-my ($failed, $result) = container_logs($container, $max_lines);
+my ($failed, $result) = container_logs($container, $max_lines, $in{'filter'} || "", $in{'basic-search'} || 0);
 if ($failed) {
-    print ui_alert_box($failed, 'danger');
-} else {
-    print &ui_form_start("container.cgi");
-    print &ui_hidden("container", $container),"\n";
-    print &ui_hidden("tab", "log"),"\n";
-    print "Auto refresh: " . &ui_select("auto-refresh", html_escape($in{'auto-refresh'}), ["Never", 3, 10, 30, 60]);
-    print "Show max lines: " . &ui_textbox("max-lines", html_escape($max_lines), 4);
-    print &ui_submit(text('label_refresh'));
-    print &ui_form_end(),"<br>\n";
-    
-    
-    print '
-    <script type="text/javascript">
-    {
-        let refresher;
-        let selectElement = document.querySelector("select[name=\'auto-refresh\']");
+    print ui_alert_box($result, 'danger');
+}
 
-        function refreshContainerLog() {
-            $.get("container.cgi?tab=log&container=' . urlize($container) . '", function (resp) {
-                let d = $($.parseHTML(resp)).find("pre#container-log");
-                $("pre#container-log").text(d.text());
-            });
-        }
+print &ui_form_start("container.cgi");
+print &ui_hidden("container", $container),"\n";
+print &ui_hidden("tab", "log"),"\n";
+print "Auto refresh: " . &ui_select("auto-refresh", html_escape($in{'auto-refresh'}), ["Never", 3, 10, 30, 60]);
+print "Show max lines: " . &ui_textbox("max-lines", html_escape($max_lines), 4);
+print "Filter: " . &ui_textbox("filter", html_escape($in{'filter'}), 50);
+print ui_checkbox("basic-search", 1, "Ignore special", html_escape($in{'basic-search'}));
 
-        function setupRefresh(refreshPeriod) {
-            if (refresher) {
-                clearInterval(refresher);
-                refresher = null;
-            }
+print &ui_submit(text('label_refresh'));
+print &ui_form_end(),"<br>\n";
 
-            if (refreshPeriod == null) {
-                return;
-            }
 
-            refresher = setInterval(refreshContainerLog, refreshPeriod * 1000); // Sec to milli
-        }
+print '
+<script type="text/javascript">
+{
+    let refresher;
+    let selectElement = document.querySelector("select[name=\'auto-refresh\']");
 
-        selectElement.addEventListener("change", (event) => {
-            let refreshPeriod = event.target.value == "Never" ? null : event.target.value;
-
-            if (!window.jQuery) {
-                console.log("No jQuery found");
-                return;
-            }
-
-            setupRefresh(refreshPeriod);
+    function refreshContainerLog() {
+        $.get("container.cgi?tab=log&container=' . urlize($container) . '", function (resp) {
+            let d = $($.parseHTML(resp)).find("pre#container-log");
+            $("pre#container-log").text(d.text());
         });
     }
-    </script>';
 
-    print "<pre id='container-log'>" . $result . "</pre>";
+    function setupRefresh(refreshPeriod) {
+        if (refresher) {
+            clearInterval(refresher);
+            refresher = null;
+        }
+
+        if (refreshPeriod == null) {
+            return;
+        }
+
+        refresher = setInterval(refreshContainerLog, refreshPeriod * 1000); // Sec to milli
+    }
+
+    selectElement.addEventListener("change", (event) => {
+        let refreshPeriod = event.target.value == "Never" ? null : event.target.value;
+
+        if (!window.jQuery) {
+            console.log("No jQuery found");
+            return;
+        }
+
+        setupRefresh(refreshPeriod);
+    });
 }
+</script>';
+
+print "<pre id='container-log'>" . $result . "</pre>";
+
 print ui_tabs_end_tab('mode', 'log');
 
 # INSPECT TAB
