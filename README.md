@@ -1,15 +1,20 @@
 # Webmin module for basic docker tasks
 
-Created to manage a local Docker install for a home server. Allows listing of containers; viewing basic container perf stats and docker state; and starting/stopping/restarting containers.
-
-It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing.
+Created to manage a local Docker install for a home server. Current supports:
+* Listing of current containers
+* Starting, stopped and restarting containers
+* Viewing docker system info
+* View, automatically refresh and filter container logs
+* View container properties
 
 Currently translated to English, Italian and Polish. UI is responsive across all device sizes.
 
 If you're after a full Docker web interface you should consider https://www.portainer.io or https://yacht.sh.
 
-## Install
+## How does it work?
+It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing. This should work for normal installs of docker - rootless docker and other alternative installs is currently not supported.
 
+## Install
 The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and use the latest release package using [https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz](https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz).
 
 Alternatively you can download and install it directly from the [releases page](https://github.com/dave-lang/webmin-docker/releases) or it build manually, the packaging steps are in the GitHub action in the repo.
@@ -17,13 +22,15 @@ Alternatively you can download and install it directly from the [releases page](
 Once installed a new option 'Docker Containers' will appear in the menu under 'Servers'.
 
 ### Container listing/actions
-![image](https://github.com/user-attachments/assets/e4eeda35-1800-48d5-8b15-b498f7305311)
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/58de37c1-2f8b-42d9-9b49-ea9f541f9e53">
 
-### Container inspection
-![image](https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36)
+### Container inspection and logs
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/940c98c8-fe8d-442c-acc5-9757a3ff4102">
+
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36">
 
 ### Host docker information
-![image](https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc)
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc">
 
 ## Contributing
 
