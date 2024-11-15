@@ -5,11 +5,27 @@ services:
     container_name: webmin_master
     privileged: true
     build:
-      context: ./
+      context: ./docker
     volumes:
       - ../docker:/usr/share/webmin/docker:rw # This also requires the ACL permission to load in Webmin, see dockerfile
+      #- ../docker/config:/etc/webmin/docker/config:rw # breaks editing config in portal
       - ./dind:/home/dind:rw
     ports:
       - "10000:10000"
+    cap_add:
+      - NET_ADMIN
+  dockerdd:
+    #image: docker:27-dind-rootless
+    container_name: docker_dd
+    privileged: true
+    build:
+      context: ./docker-dind
+      dockerfile: ./Dockerfile
+    volumes:
+      - ../docker:/usr/local/webmin/docker:rw # This also requires the ACL permission to load in Webmin, see dockerfile
+      #- ../docker/config:/etc/webmin/docker/config:rw # breaks editing config in portal
+      - ./dind:/home/dind:rw
+    ports:
+      - "20000:10000"
     cap_add:
       - NET_ADMIN

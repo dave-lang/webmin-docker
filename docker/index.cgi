@@ -5,10 +5,17 @@ use Data::Dumper;
 
 require './docker-lib.pl';
 
-ui_print_header(undef, &text('index_title'), "", undef, undef, 1);
+ui_print_header(undef, &text('index_title'), "", undef, 1, 1);
 
 if (!&has_command('docker')) {
     &ui_print_endpage(&text('not_installed'));  #, "<tt>$config{'syslog_conf'}</tt>", "../config.cgi?$module_name"));
+}
+
+our (%config);
+
+if ($config{'docker_context'}) {
+    print ui_alert_box('Using docker context: ' . 
+        html_escape($config{'docker_context'}) . ' ' . &help_search_link("docker context", "google"), 'warn');
 }
 
 my @tabs = ( [ 'info', &text('tab_info') ],
@@ -23,7 +30,7 @@ if ($status_fail) {
     print ui_alert_box($status_fail, 'danger');
 } else {
     #print circular_grid($status);  # Ugly recursive output
-    print "<pre>" . $status . "</pre>";
+    print "<pre>" . html_escape($status) . "</pre>";
 }
 print ui_tabs_end_tab('mode', 'info');
 
@@ -39,7 +46,42 @@ if ($fail) {
     print &ui_submit(text('label_refresh'));
     print &ui_form_end(),"<br>\n";
 
-    print '<style>.panel-body tr td { padding: 5px 10px 7px 10px !important} </style>';
+    # Provide some basic responsive support across all themes
+    print '<style>
+    .panel-body tr td { padding: 5px 10px 7px 10px !important} 
+    
+    .visible-xs,.visible-sm,.visible-md,.visible-lg {
+        display: none !important
+    }
+
+    @media(max-width: 767px) {
+        .visible-xs {
+            display:block !important
+        }
+    }
+    @media(max-width: 767px) {
+        .hidden-xs {
+            display:none !important
+        }
+    }
+
+    @media(min-width: 768px) and (max-width:991px) {
+        .hidden-sm {
+            display:none !important
+        }
+    }
+
+    @media(min-width: 992px) and (max-width:1199px) {
+        .hidden-md {
+            display:none !important
+        }
+    }
+
+    @media(min-width: 1200px) {
+        .hidden-lg {
+            display:none !important
+        }
+    }</style>';
     
     print &ui_columns_start([
         &text('label_name'), 

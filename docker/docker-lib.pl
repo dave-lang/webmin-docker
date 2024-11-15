@@ -12,16 +12,23 @@ use JSON::PP;
 init_config();
 
 sub docker_command {
+    our (%config);
     my($command, $format, $safe) = @_;
     $format ||= "";
+    my $context = "";
     $safe ||= 1;
 
     if ($format) {
         $format = ' --format "' . $format . '"'
     }
 
+    # If there's a context set, use it
+    if ($config{'docker_context'}) {
+        $context = ' --context "' . $config{'docker_context'} . '"';
+    }
+
     my ($result, $fail);
-    my $code = execute_command('docker ' . $command . $format, undef, \$result, \$fail, 0, $safe);
+    my $code = execute_command('docker' . $context . ' ' . $command . $format, undef, \$result, \$fail, 0, $safe);
 
     if ($code != 0) {
         return $code, $fail;
