@@ -2,9 +2,15 @@
 name: Package release
 
 on: # yamllint disable-line rule:truthy
-  push:
-    tags:
-    - "**"
+  # push:
+  #   tags:
+  #   - "**"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to create
+        required: true
+        type: string
 
 # Workflow jobs
 jobs:
@@ -30,12 +36,14 @@ jobs:
             ./docker
           outPath: docker.wbm.gz
 
+      # Manual release
       # https://github.com/marketplace/actions/create-release
       - name: "Upload release"
         uses: ncipollo/release-action@v1
         with:
           artifacts: "docker.wbm.gz"
-          tag: ${{ github.ref_name }}
+          tag: ${{ inputs.tag }} #${{ github.ref_name }}
+          commit: main
           prerelease: true
           draft: true
           generateReleaseNotes: true
