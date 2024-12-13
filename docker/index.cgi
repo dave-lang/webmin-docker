@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+$trust_unknown_referers = 1;
 use strict;
 use warnings;
 use Data::Dumper;
@@ -27,11 +28,12 @@ print ui_tabs_start(\@tabs, 'info', 'containers', 1);
 print ui_tabs_start_tab('mode', 'info');
 my($status_fail, $status) = get_status();
 if ($status_fail) {
-    print ui_alert_box($status_fail, 'danger');
+    print ui_alert_box($status, 'danger');
 } else {
     #print circular_grid($status);  # Ugly recursive output
     print "<pre>" . html_escape($status) . "</pre>";
 }
+
 print ui_tabs_end_tab('mode', 'info');
 
 # CONTAINERS TAB
@@ -45,6 +47,10 @@ if ($fail) {
     print &ui_form_start("");
     print &ui_submit(text('label_refresh'));
     print &ui_form_end(),"<br>\n";
+
+    if (scalar(@containers) == 0) {
+    print "No containers defined";
+    } else {
 
     # Provide some basic responsive support across all themes
     print '<style>
@@ -140,6 +146,7 @@ if ($fail) {
 
     }
     print ui_columns_end();
+    }
 }
 
 print ui_tabs_end_tab('mode', 'containers');

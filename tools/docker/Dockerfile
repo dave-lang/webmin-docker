@@ -8,20 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive TZ=Australia/Brisbane
 RUN apt-get update -qq -y && \
     apt-get upgrade -y && \
     apt-get install -y \
-#        wget \
-#        curl \
-#        apt-transport-https \
-#        lsb-release \ 
-#        ca-certificates \
        gnupg2 \
-#        software-properties-common \
-#        locales \
-#        cron    \
        net-tools
-#        vim \
-#        docker \ 
-#        docker-compose
-# RUN dpkg-reconfigure locales
 
 # Install Webmin
 RUN echo root:password | chpasswd && \
@@ -34,7 +22,7 @@ RUN echo root:password | chpasswd && \
     apt-get install -y webmin && \
     # apt-get clean && \
     echo "$(cat /etc/webmin/webmin.acl) docker" > /etc/webmin/webmin.acl && \
-    mkdir /etc/webmin/docker 
+    mkdir /etc/webmin/docker && chmod 755 /etc/webmin/docker
 
 # Last 2 line adds docker module to webmin's acl, for easier development and creates the config dir.
 # Also requires the volume & config in the compose

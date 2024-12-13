@@ -6,20 +6,26 @@ Created to manage a local Docker install for a home server. Current supports:
 * Viewing docker system info
 * View, automatically refresh and filter container logs
 * View container properties
+* 2 new monitor types for [System and server status](https://webmin.com/docs/modules/system-and-server-status/) - 'Docker Up' &amp; 'Docker Container Up'
 
 Currently translated to English, Italian and Polish. UI is responsive across all device sizes.
 
 If you're after a full Docker web interface you should consider https://www.portainer.io or https://yacht.sh.
 
 ## How does it work?
-It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing. This should work for normal installs of docker - rootless docker and other alternative installs is currently not supported.
+It uses the Docker CLI and abuses the `--format {{}}` arg for output parsing. This should work for normal installs of Docker and Rootless Docker installs where the webmin user has an appropriate Docker context and permissions applied (see [Rootless Docker](#rootless-docker)).
+
+For monitors checks, `docker info` is used to get the current Docker status to avoid complexities in determining how Docker is set to startup and run. Container health is checked via `docker container inspect`.
 
 ## Install
 The fastest way to install is to follow the "Http URL" method (https://webmin.com/docs/modules/webmin-configuration/#installing) and use the latest release package using [https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz](https://github.com/dave-lang/webmin-docker/releases/latest/download/docker.wbm.gz).
 
 Alternatively you can download and install it directly from the [releases page](https://github.com/dave-lang/webmin-docker/releases) or it build manually, the packaging steps are in the GitHub action in the repo.
 
-Once installed a new option 'Docker Containers' will appear in the menu under 'Servers'.
+Once installed:
+- 'View docker containers' will appear in the menu under 'Servers'
+  - If you are using an alternative context for Docker, set this under the module configuration link in the top left of "View docker containers"
+- 'Docker Up' &amp; 'Docker Container Up' will appear in the monitors that can be configured under 'Tools' &gt; 'System and server status'
 
 ## Rootless Docker
 
@@ -36,16 +42,23 @@ Experimental rootless docker support has been added via [docker contexts](https:
 
 ## Functionality
 
-### Container listing/actions
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/58de37c1-2f8b-42d9-9b49-ea9f541f9e53">
+**Container listing/actions**
 
-### Container inspection and logs
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/940c98c8-fe8d-442c-acc5-9757a3ff4102">
+<img width="480" alt="Screenshot showing container listing" src="https://github.com/user-attachments/assets/58de37c1-2f8b-42d9-9b49-ea9f541f9e53">
 
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36">
+**Container inspection and logs**
 
-### Host docker information
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc">
+<img width="480" alt="Screenshot showing container info" src="https://github.com/user-attachments/assets/940c98c8-fe8d-442c-acc5-9757a3ff4102">
+
+<img width="480" alt="Screenshot showing container logs" src="https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36">
+
+**Host docker information**
+
+<img width="480" alt="Screenshot showing docker info display" src="https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc">
+
+**Monitors**
+
+<img width="480" alt="Screenshot showing monitor support options" src="https://github.com/user-attachments/assets/b50d10ae-de5b-4329-8d49-b13e6efae09c">
 
 ## Contributing
 
@@ -59,7 +72,7 @@ The development environment creates 2 containers:
 - webmin_master - Webmin on focal ubuntu with docker & webmin auto start, available on port 10000 on the host
 - docker_dd - DIND container with rootless docker and webmin, available on port 20000 on the host (DOES NOT AUTO START). Very hacky.
 
-### To use
+### Setup
 1. `cd tools`
 1. `docker-compose up -d` to run docker compose as daemon
 1. Open http://localhost:10000 to access the webmin console for docker on Ubuntu

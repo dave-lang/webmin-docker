@@ -11,14 +11,14 @@ our (%in);
 my $container = $in{'container'};
 my $tab = $in{'tab'};
 
-my ($code, $container_name) = get_container_attr($container, 'Name');
+my ($code, $result) = get_container_attr($container, 'Name');
 if ($code) {  # Bad container id
     ui_print_header(undef, text('view_container_title', "not found"), "", undef, undef, $in{'nonavlinks'});
-    &ui_print_endpage(ui_alert_box($code, 'danger'), "Back", "/");
+    &ui_print_endpage(ui_alert_box($result, 'danger'), "Back", "/");
 }
 
 # Trim leading /
-$container_name = substr $container_name, 1;
+my $container_name = substr($result, 1);
 ui_print_header(undef, text('view_container_title', $container_name), "", undef, undef, $in{'nonavlinks'});
 
 my @tabs = ( [ 'log', &text('tab_log') ],
