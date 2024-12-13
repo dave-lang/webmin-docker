@@ -11,11 +11,20 @@ use JSON::PP;
 
 init_config();
 
-sub docker_command {
+sub get_context {
     our (%config);
+    my $context = "";
+
+    if ($config{'docker_context'}) {
+        $context = ' --context "' . $config{'docker_context'} . '"';
+    }
+
+    return $context;
+}
+
+sub docker_command {
     my($command, $format, $safe) = @_;
     $format ||= "";
-    my $context = "";
     $safe ||= 1;
 
     if ($format) {
@@ -23,14 +32,16 @@ sub docker_command {
     }
 
     # If there's a context set, use it
-    if ($config{'docker_context'}) {
-        $context = ' --context "' . $config{'docker_context'} . '"';
-    }
+    my $context = &get_context();
 
     my ($result, $fail);
     my $code = execute_command('docker' . $context . ' ' . $command . $format, undef, \$result, \$fail, 0, $safe);
 
     if ($code != 0) {
+        my $trimEnd = index($fail, "errors pretty printing info");
+        if ($trimEnd > 0) {
+            $fail = substr($fail, 0, $trimEnd);
+        }
         return $code, $fail;
     }
 
@@ -41,7 +52,7 @@ sub docker_command {
 sub get_status {
     my ($code, $result) = docker_command('info');
     if ($code != 0) {
-        return $result;
+        return $code, $result;
     }
 
     # my $json = decode_json($result);
@@ -78,12 +89,7 @@ sub get_container_attr
 {
     my($container, $attr) = @_;
     my ($code, $result) = docker_command('inspect --type=container ' . $container, '{{.' . $attr . '}}');
-    if ($code != 0) {
-        print "Bang";
-        return $result;
-    }
-
-    return 0, $result;
+    return $code, $result;
 }
 
 sub get_stats
