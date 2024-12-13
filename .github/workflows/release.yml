@@ -11,6 +11,11 @@ on: # yamllint disable-line rule:truthy
         description: Tag to create
         required: true
         type: string
+      draft:
+        description: Create / update as draft
+        default: true
+        required: true
+        type: boolean
 
 # Workflow jobs
 jobs:
@@ -45,5 +50,9 @@ jobs:
           tag: ${{ inputs.tag }} #${{ github.ref_name }}
           commit: main
           prerelease: true
-          draft: true
+          draft: ${{ inputs.draft }}
           generateReleaseNotes: true
+          allowUpdates: true
+          replacesArtifacts: true
+          omitPrereleaseDuringUpdate: true
+          omitNameDuringUpdate: true
