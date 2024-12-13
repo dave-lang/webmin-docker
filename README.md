@@ -42,16 +42,23 @@ Experimental rootless docker support has been added via [docker contexts](https:
 
 ## Functionality
 
-### Container listing/actions
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/58de37c1-2f8b-42d9-9b49-ea9f541f9e53">
+**Container listing/actions**
 
-### Container inspection and logs
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/940c98c8-fe8d-442c-acc5-9757a3ff4102">
+<img width="480" alt="Screenshot showing container listing" src="https://github.com/user-attachments/assets/58de37c1-2f8b-42d9-9b49-ea9f541f9e53">
 
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36">
+**Container inspection and logs**
 
-### Host docker information
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc">
+<img width="480" alt="Screenshot showing container info" src="https://github.com/user-attachments/assets/940c98c8-fe8d-442c-acc5-9757a3ff4102">
+
+<img width="480" alt="Screenshot showing container logs" src="https://github.com/user-attachments/assets/17bdeec8-c285-41bc-a6d1-3ddcffd34e36">
+
+**Host docker information**
+
+<img width="480" alt="Screenshot showing docker info display" src="https://github.com/user-attachments/assets/d059e89b-8f29-4ee1-b0dc-5caac3d3d8bc">
+
+**Monitors**
+
+<img width="480" alt="Screenshot showing monitor support options" src="https://github.com/user-attachments/assets/b50d10ae-de5b-4329-8d49-b13e6efae09c">
 
 ## Contributing
 
