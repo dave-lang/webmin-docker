@@ -12,15 +12,15 @@ our (%in);
 my $command = $in{'c'};
 
 my $err;
-if ($command == 'start') {
+if ($command eq 'start') {
     $err = container_command($in{'container'}, 'start');
 }
 
-if ($command == 'stop') {
+if ($command eq 'stop') {
     $err = container_command($in{'container'}, 'stop');
 }
 
-if ($command == 'restart') {
+if ($command eq 'restart') {
    $err = container_command($in{'container'}, 'restart')
 }
 
