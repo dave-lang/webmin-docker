@@ -21,18 +21,19 @@ sub status_monitor_status
     if ($type eq "docker_up") {
         my ($status, $result) = &get_status();
         return { 
-            'up' => $status == 0 ? 1 : 0, 
+            'up' => $status == 0 ? 1 : 0, # status code 0 means ok response
             "desc" => $status != 0 ? $result : ''
         };
     } elsif ($type eq "docker_containerup") {
         $container = $monitor->{'docker_container'};
 
         my ($status, $result) = &get_container_attr($container, "State.Status");
+        my ($status2, $uptime) = &get_container_ps_info($container, "Status"); # append uptime to running status
 
-        my $ok = $status == 0 && $result == "running" ? 1 : 0;
+        my $ok = ($status == 0 && $result eq "running") ? 1 : 0;  # status code 0 means ok response
         return { 
             'up' => $ok,
-            'desc' => ucfirst($result)
+            'desc' => ucfirst($result) . ($uptime ne '' ? ' (' . $uptime . ')' : '')
         };
     } 
     return { 'up' => -1,

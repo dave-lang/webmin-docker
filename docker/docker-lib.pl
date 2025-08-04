@@ -85,12 +85,20 @@ sub get_containers
     return 0, @results;
 }
 
+sub get_container_ps_info
+{
+    my($container, $attr) = @_;
+    my ($code, $result) = docker_command('ps -f name=' . $container, '{{.' . $attr . '}}');
+    $result =~ s/^\s+|\s+$//g; # whitespace occassionally pre/post
+    return $code, $result;
+}
+
 sub get_container_attr
 {
     my($container, $attr) = @_;
     my ($code, $result) = docker_command('inspect --type=container ' . $container, '{{.' . $attr . '}}');
-    return $code, $result;
-}
+    $result =~ s/^\s+|\s+$//g; # whitespace occassionally pre/post
+    return $code, $result;}
 
 sub get_stats
 {
