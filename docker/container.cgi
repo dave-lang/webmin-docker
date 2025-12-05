@@ -10,6 +10,7 @@ our (%in);
 
 my $container = $in{'container'};
 my $tab = $in{'tab'};
+my $action = $in{'action'};
 
 my ($code, $result) = get_container_attr($container, 'Name');
 if ($code) {  # Bad container id
@@ -22,16 +23,24 @@ my $container_name = substr($result, 1);
 ui_print_header(undef, text('view_container_title', $container_name), "", undef, undef, $in{'nonavlinks'});
 
 my @tabs = ( [ 'log', &text('tab_log') ],
-            [ 'inspect', &text('tab_inspect') ] );
+            [ 'inspect', &text('tab_inspect') ],
+            [ 'exec', &text('tab_exec') ] );
 
 print ui_tabs_start(\@tabs, 'log', $tab, 1);
 
 # LOGS TAB
 my ($max_lines) = $in{'max-lines'} || 50;
 print ui_tabs_start_tab('mode', 'log');
-my ($failed, $result) = container_logs($container, $max_lines, $in{'filter'} || "", $in{'basic-search'} || 0);
+my ($failed, $log_result) = container_logs($container, $max_lines, $in{'filter'} || "", $in{'basic-search'} || 0);
 if ($failed) {
-    print ui_alert_box($result, 'danger');
+    print ui_alert_box($log_result, 'danger');
+}
+
+if ($in{'download'}) {
+    print "Content-type: text/plain\n";
+    print "Content-Disposition: attachment; filename=\"$container_name.log\"\n\n";
+    print $log_result;
+    exit;
 }
 
 print &ui_form_start("container.cgi");
@@ -45,6 +54,7 @@ print ui_checkbox("basic-search", 1, "Ignore special", html_escape($in{'basic-se
 print &ui_submit(text('label_refresh'));
 print &ui_form_end(),"<br>\n";
 
+print "<p><a href='container.cgi?tab=log&download=1&container=" . urlize($container) . "'>" . text('label_download_log') . "</a></p>";
 
 print '
 <script type="text/javascript">
@@ -85,7 +95,7 @@ print '
 }
 </script>';
 
-print "<pre id='container-log'>" . $result . "</pre>";
+print "<pre id='container-log'>" . $log_result . "</pre>";
 
 print ui_tabs_end_tab('mode', 'log');
 
@@ -98,6 +108,65 @@ if ($failedB) {
     print "<pre class='comment'>" . $resultB . "</pre>";
 }
 print ui_tabs_end_tab('mode', 'inspect');
+
+# EXEC TAB
+print ui_tabs_start_tab('mode', 'exec');
+if ($action && $action eq 'exec') {
+    my ($ecode, $exec_result) = exec_in_container($container, $in{'cmd'});
+    if ($ecode) {
+        print ui_alert_box($exec_result, 'danger');
+    } else {
+        print "<pre class='comment'>" . html_escape($exec_result) . "</pre>";
+    }
+}
+
+if ($action && $action eq 'copy_to') {
+    my ($ccode, $cresult) = copy_to_container($in{'host_path'}, $container, $in{'target_path'});
+    if ($ccode) { print ui_alert_box($cresult, 'danger'); }
+    else { print ui_alert_box(text('label_copy_ok'), 'info'); }
+}
+
+if ($action && $action eq 'copy_from') {
+    my ($ccode, $cresult) = copy_from_container($container, $in{'source_path'}, $in{'host_dest'});
+    if ($ccode) { print ui_alert_box($cresult, 'danger'); }
+    else { print ui_alert_box(text('label_copy_ok'), 'info'); }
+}
+
+print &ui_form_start("container.cgi");
+print &ui_hidden("container", $container);
+print &ui_hidden("tab", "exec");
+print &ui_hidden("action", "exec");
+print &ui_table_start(text('label_exec'));
+print &ui_table_row(text('label_command'), &ui_textbox("cmd", html_escape($in{'cmd'}), 50));
+print &ui_table_end();
+print &ui_submit(text('label_run'));
+print &ui_form_end();
+
+print ui_hr();
+print &ui_form_start("container.cgi");
+print &ui_hidden("container", $container);
+print &ui_hidden("tab", "exec");
+print &ui_hidden("action", "copy_to");
+print &ui_table_start(text('label_copy_to'));
+print &ui_table_row(text('label_host_path'), &ui_textbox("host_path", "", 40));
+print &ui_table_row(text('label_target_path'), &ui_textbox("target_path", "/tmp", 30));
+print &ui_table_end();
+print &ui_submit(text('label_copy'));
+print &ui_form_end();
+
+print ui_hr();
+print &ui_form_start("container.cgi");
+print &ui_hidden("container", $container);
+print &ui_hidden("tab", "exec");
+print &ui_hidden("action", "copy_from");
+print &ui_table_start(text('label_copy_from'));
+print &ui_table_row(text('label_source_path'), &ui_textbox("source_path", "/", 30));
+print &ui_table_row(text('label_host_dest'), &ui_textbox("host_dest", "/tmp", 30));
+print &ui_table_end();
+print &ui_submit(text('label_copy'));
+print &ui_form_end();
+
+print ui_tabs_end_tab('mode', 'exec');
 
 print ui_tabs_end();
 

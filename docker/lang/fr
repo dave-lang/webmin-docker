@@ -1,0 +1,105 @@
+not_installed=Docker na pas été trouvé sur ce système
+
+index_title=Gestion des conteneurs Docker
+index_return=liste des conteneurs
+
+view_container_title=Conteneur $1
+
+tab_info=Infos Docker
+tab_containers=Conteneurs
+tab_log=Journal
+tab_inspect=Inspecter
+
+command_err=La commande na pas pu être exécutée
+
+label_name=Nom
+label_label=Libellé
+label_running=Actif
+label_runningfor=En cours depuis
+label_cpu=CPU
+label_mem=MEM
+
+label_start=Démarrer
+label_stop=Arrêter
+label_restart=Redémarrer
+label_refresh=Actualiser
+label_viewlog=Voir le journal
+
+tab_images=Images
+tab_compose=Compose
+tab_storage=Stockage
+tab_registry=Registry
+tab_security=Sécurité
+tab_contexts=Contextes
+
+label_exec=Exécuter
+label_download_log=Télécharger le journal
+label_command=Commande
+label_run=Exécuter
+label_copy=Copier
+label_copy_ok=Copie terminée
+label_copy_to=Copier de lhôte vers le conteneur
+label_copy_from=Copier du conteneur vers lhôte
+label_host_path=Chemin hôte
+label_target_path=Chemin cible du conteneur
+label_source_path=Chemin source du conteneur
+label_host_dest=Destination hôte
+
+label_image=Image
+label_size=Taille
+label_digest=Digest
+label_actions=Actions
+label_pull=Récupérer limage
+label_push=Envoyer limage
+label_tag=Taguer limage
+label_from=Depuis
+label_to=Vers
+label_build_tag=Construire limage
+label_dockerfile=Contenu du Dockerfile
+label_prune_images=Nettoyer les images inutilisées
+label_pruned=Images nettoyées
+label_built=Image construite
+label_tagged=Image taguée
+label_pulled=Image récupérée
+label_pushed=Image envoyée
+label_checked=Mise à jour vérifiée
+label_image_actions=Actions sur limage
+
+label_compose=Fichier Compose
+label_compose_file=Chemin du fichier Compose
+label_compose_cmd=Action Compose
+label_run_compose=Exécuter Compose
+label_compose_ran=Commande Compose exécutée
+
+label_volumes=Volumes
+label_networks=Réseaux
+label_volume_create=Créer un volume
+label_network_create=Créer un réseau
+label_mount=Point de montage
+label_scope=Portée
+label_driver=Driver
+label_prune_volumes=Nettoyer les volumes inutilisés
+label_prune_networks=Nettoyer les réseaux inutilisés
+label_volume_created=Volume créé
+label_network_created=Réseau créé
+
+label_registry=Identifiants du registre
+label_registry_server=Serveur de registre
+label_registry_user=Nom dutilisateur
+label_registry_pass=Mot de passe
+label_save_login=Enregistrer et se connecter
+label_registry_saved=Identifiants de registre enregistrés
+
+label_scan=Analyse de sécurité
+
+label_context=Contexte
+label_current_context=Contexte actuel
+label_available_contexts=Contextes disponibles
+label_switch_context=Changer de contexte
+label_context_set=Contexte mis à jour
+
+label_create=Créer
+label_clone=Cloner un conteneur
+label_source=Conteneur source
+label_created=Conteneur créé
+label_cloned=Conteneur cloné

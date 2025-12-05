@@ -1,0 +1,4 @@
+name=Docker 容器
+category=servers
+desc=查看 Docker 容器
+longdesc=查看并对主机上的 Docker 容器执行基本操作

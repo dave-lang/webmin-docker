@@ -1,0 +1,105 @@
+not_installed=O Docker não foi encontrado neste sistema
+
+index_title=Gestão de contêineres Docker
+index_return=lista de contêineres
+
+view_container_title=Contêiner $1
+
+tab_info=Informações do Docker
+tab_containers=Contêineres
+tab_log=Log
+tab_inspect=Inspecionar
+
+command_err=Não foi possível executar o comando
+
+label_name=Nome
+label_label=Rótulo
+label_running=Em execução
+label_runningfor=Em execução há
+label_cpu=CPU
+label_mem=MEM
+
+label_start=Iniciar
+label_stop=Parar
+label_restart=Reiniciar
+label_refresh=Atualizar
+label_viewlog=Ver log
+
+tab_images=Imagens
+tab_compose=Compose
+tab_storage=Armazenamento
+tab_registry=Registro
+tab_security=Segurança
+tab_contexts=Contextos
+
+label_exec=Executar
+label_download_log=Baixar log
+label_command=Comando
+label_run=Executar
+label_copy=Copiar
+label_copy_ok=Cópia concluída
+label_copy_to=Copiar do host para o contêiner
+label_copy_from=Copiar do contêiner para o host
+label_host_path=Caminho do host
+label_target_path=Caminho alvo no contêiner
+label_source_path=Caminho de origem no contêiner
+label_host_dest=Destino no host
+
+label_image=Imagem
+label_size=Tamanho
+label_digest=Digest
+label_actions=Ações
+label_pull=Baixar imagem
+label_push=Enviar imagem
+label_tag=Marcar imagem
+label_from=De
+label_to=Para
+label_build_tag=Construir imagem
+label_dockerfile=Conteúdo do Dockerfile
+label_prune_images=Remover imagens não usadas
+label_pruned=Imagens removidas
+label_built=Imagem construída
+label_tagged=Imagem marcada
+label_pulled=Imagem baixada
+label_pushed=Imagem enviada
+label_checked=Atualização verificada
+label_image_actions=Ações da imagem
+
+label_compose=Arquivo Compose
+label_compose_file=Caminho do arquivo Compose
+label_compose_cmd=Ação do Compose
+label_run_compose=Executar Compose
+label_compose_ran=Comando Compose executado
+
+label_volumes=Volumes
+label_networks=Redes
+label_volume_create=Criar volume
+label_network_create=Criar rede
+label_mount=Ponto de montagem
+label_scope=Escopo
+label_driver=Driver
+label_prune_volumes=Remover volumes não usados
+label_prune_networks=Remover redes não usadas
+label_volume_created=Volume criado
+label_network_created=Rede criada
+
+label_registry=Credenciais do registro
+label_registry_server=Servidor do registro
+label_registry_user=Usuário
+label_registry_pass=Senha
+label_save_login=Salvar e entrar
+label_registry_saved=Credenciais salvas
+
+label_scan=Varredura de segurança
+
+label_context=Contexto
+label_current_context=Contexto atual
+label_available_contexts=Contextos disponíveis
+label_switch_context=Alterar contexto
+label_context_set=Contexto atualizado
+
+label_create=Criar
+label_clone=Clonar contêiner
+label_source=Contêiner de origem
+label_created=Contêiner criado
+label_cloned=Contêiner clonado

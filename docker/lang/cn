@@ -1,0 +1,105 @@
+not_installed=此系统未找到 Docker
+
+index_title=Docker 容器管理
+index_return=容器列表
+
+view_container_title=容器 $1
+
+tab_info=Docker 信息
+tab_containers=容器
+tab_log=日志
+tab_inspect=检查
+
+command_err=无法运行命令
+
+label_name=名称
+label_label=标签
+label_running=运行中
+label_runningfor=已运行
+label_cpu=CPU
+label_mem=内存
+
+label_start=启动
+label_stop=停止
+label_restart=重启
+label_refresh=刷新
+label_viewlog=查看日志
+
+tab_images=镜像
+tab_compose=Compose
+tab_storage=存储
+tab_registry=仓库
+tab_security=安全
+tab_contexts=上下文
+
+label_exec=执行
+label_download_log=下载日志
+label_command=命令
+label_run=运行
+label_copy=复制
+label_copy_ok=复制完成
+label_copy_to=从主机复制到容器
+label_copy_from=从容器复制到主机
+label_host_path=主机路径
+label_target_path=容器目标路径
+label_source_path=容器源路径
+label_host_dest=主机目标
+
+label_image=镜像
+label_size=大小
+label_digest=摘要
+label_actions=操作
+label_pull=拉取镜像
+label_push=推送镜像
+label_tag=标记镜像
+label_from=源
+label_to=目标
+label_build_tag=构建镜像
+label_dockerfile=Dockerfile 内容
+label_prune_images=清理未用镜像
+label_pruned=镜像已清理
+label_built=镜像已构建
+label_tagged=镜像已标记
+label_pulled=镜像已拉取
+label_pushed=镜像已推送
+label_checked=已检查更新
+label_image_actions=镜像操作
+
+label_compose=Compose 文件
+label_compose_file=Compose 文件路径
+label_compose_cmd=Compose 操作
+label_run_compose=运行 Compose
+label_compose_ran=已运行 Compose 命令
+
+label_volumes=卷
+label_networks=网络
+label_volume_create=创建卷
+label_network_create=创建网络
+label_mount=挂载点
+label_scope=范围
+label_driver=驱动
+label_prune_volumes=清理未用卷
+label_prune_networks=清理未用网络
+label_volume_created=卷已创建
+label_network_created=网络已创建
+
+label_registry=仓库凭证
+label_registry_server=仓库服务器
+label_registry_user=用户名
+label_registry_pass=密码
+label_save_login=保存并登录
+label_registry_saved=已保存凭证
+
+label_scan=安全扫描
+
+label_context=上下文
+label_current_context=当前上下文
+label_available_contexts=可用上下文
+label_switch_context=切换上下文
+label_context_set=已更新上下文
+
+label_create=创建
+label_clone=克隆容器
+label_source=源容器
+label_created=容器已创建
+label_cloned=容器已克隆

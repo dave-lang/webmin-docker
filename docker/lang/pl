@@ -24,3 +24,82 @@ label_stop=Stop
 label_restart=Uruchom ponownie
 label_refresh=Odświerz
 label_viewlog=Zobacz dziennik
+
+tab_images=Images
+tab_compose=Compose
+tab_storage=Storage
+tab_registry=Registry
+tab_security=Security
+tab_contexts=Contexts
+
+label_exec=Exec
+label_download_log=Download log
+label_command=Command
+label_run=Run
+label_copy=Copy
+label_copy_ok=Copy complete
+label_copy_to=Copy from host to container
+label_copy_from=Copy from container to host
+label_host_path=Host path
+label_target_path=Container target path
+label_source_path=Container source path
+label_host_dest=Host destination
+
+label_image=Image
+label_size=Size
+label_digest=Digest
+label_actions=Actions
+label_pull=Pull image
+label_push=Push image
+label_tag=Tag image
+label_from=From
+label_to=To
+label_build_tag=Build image
+label_dockerfile=Dockerfile contents
+label_prune_images=Prune dangling images
+label_pruned=Images pruned
+label_built=Image built
+label_tagged=Image tagged
+label_pulled=Image pulled
+label_pushed=Image pushed
+label_checked=Image checked
+label_image_actions=Image actions
+
+label_compose=Compose file
+label_compose_file=Compose file path
+label_compose_cmd=Compose action
+label_run_compose=Run compose
+label_compose_ran=Compose command ran
+
+label_volumes=Volumes
+label_networks=Networks
+label_volume_create=Create volume
+label_network_create=Create network
+label_mount=Mount
+label_scope=Scope
+label_driver=Driver
+label_prune_volumes=Prune unused volumes
+label_prune_networks=Prune unused networks
+label_volume_created=Volume created
+label_network_created=Network created
+
+label_registry=Registry credentials
+label_registry_server=Registry server
+label_registry_user=Username
+label_registry_pass=Password
+label_save_login=Save and login
+label_registry_saved=Registry credentials saved
+
+label_scan=Security scan
+
+label_context=Context
+label_current_context=Current context
+label_available_contexts=Available contexts
+label_switch_context=Switch context
+label_context_set=Context updated
+
+label_create=Create
+label_clone=Clone container
+label_source=Source container
+label_created=Container created
+label_cloned=Container cloned
