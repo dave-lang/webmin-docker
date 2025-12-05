@@ -1,0 +1,105 @@
+not_installed=このシステムで Docker が見つかりません
+
+index_title=Docker コンテナ管理
+index_return=コンテナ一覧
+
+view_container_title=コンテナ $1
+
+tab_info=Docker 情報
+tab_containers=コンテナ
+tab_log=ログ
+tab_inspect=検査
+
+command_err=コマンドを実行できませんでした
+
+label_name=名前
+label_label=ラベル
+label_running=実行中
+label_runningfor=稼働時間
+label_cpu=CPU
+label_mem=メモリ
+
+label_start=開始
+label_stop=停止
+label_restart=再起動
+label_refresh=更新
+label_viewlog=ログを表示
+
+tab_images=イメージ
+tab_compose=Compose
+tab_storage=ストレージ
+tab_registry=レジストリ
+tab_security=セキュリティ
+tab_contexts=コンテキスト
+
+label_exec=Exec
+label_download_log=ログをダウンロード
+label_command=コマンド
+label_run=実行
+label_copy=コピー
+label_copy_ok=コピー完了
+label_copy_to=ホストからコンテナへコピー
+label_copy_from=コンテナからホストへコピー
+label_host_path=ホストのパス
+label_target_path=コンテナの保存先パス
+label_source_path=コンテナのソースパス
+label_host_dest=ホストの保存先
+
+label_image=イメージ
+label_size=サイズ
+label_digest=ダイジェスト
+label_actions=操作
+label_pull=イメージを取得
+label_push=イメージをプッシュ
+label_tag=イメージにタグ
+label_from=元
+label_to=先
+label_build_tag=イメージをビルド
+label_dockerfile=Dockerfile の内容
+label_prune_images=未使用イメージを削除
+label_pruned=イメージを削除
+label_built=イメージを作成
+label_tagged=イメージにタグ付け
+label_pulled=イメージを取得
+label_pushed=イメージをプッシュ
+label_checked=更新を確認
+label_image_actions=イメージ操作
+
+label_compose=Compose ファイル
+label_compose_file=Compose ファイルのパス
+label_compose_cmd=Compose アクション
+label_run_compose=Compose を実行
+label_compose_ran=Compose コマンドを実行
+
+label_volumes=ボリューム
+label_networks=ネットワーク
+label_volume_create=ボリュームを作成
+label_network_create=ネットワークを作成
+label_mount=マウントポイント
+label_scope=スコープ
+label_driver=ドライバー
+label_prune_volumes=未使用ボリュームを削除
+label_prune_networks=未使用ネットワークを削除
+label_volume_created=ボリュームを作成しました
+label_network_created=ネットワークを作成しました
+
+label_registry=レジストリ認証情報
+label_registry_server=レジストリサーバー
+label_registry_user=ユーザー名
+label_registry_pass=パスワード
+label_save_login=保存してログイン
+label_registry_saved=認証情報を保存しました
+
+label_scan=セキュリティスキャン
+
+label_context=コンテキスト
+label_current_context=現在のコンテキスト
+label_available_contexts=利用可能なコンテキスト
+label_switch_context=コンテキストを切り替え
+label_context_set=コンテキストを更新
+
+label_create=作成
+label_clone=コンテナを複製
+label_source=元コンテナ
+label_created=コンテナを作成しました
+label_cloned=コンテナを複製しました

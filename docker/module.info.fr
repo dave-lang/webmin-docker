@@ -1,0 +1,4 @@
+name=Conteneurs Docker
+category=servers
+desc=Voir les conteneurs Docker
+longdesc=Afficher et effectuer des actions de base sur les conteneurs Docker de l'hôte

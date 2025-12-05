@@ -1,0 +1,4 @@
+name=Docker コンテナ
+category=servers
+desc=Docker コンテナの表示
+longdesc=ホスト上の Docker コンテナを表示し基本操作を行います

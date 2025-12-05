@@ -1,0 +1,105 @@
+not_installed=Docker no se encontró en este sistema
+
+index_title=Gestión de contenedores Docker
+index_return=lista de contenedores
+
+view_container_title=Contenedor $1
+
+tab_info=Información de Docker
+tab_containers=Contenedores
+tab_log=Registro
+tab_inspect=Inspeccionar
+
+command_err=No se pudo ejecutar el comando
+
+label_name=Nombre
+label_label=Etiqueta
+label_running=En ejecución
+label_runningfor=En ejecución desde
+label_cpu=CPU
+label_mem=MEM
+
+label_start=Iniciar
+label_stop=Detener
+label_restart=Reiniciar
+label_refresh=Actualizar
+label_viewlog=Ver registro
+
+tab_images=Imágenes
+tab_compose=Compose
+tab_storage=Almacenamiento
+tab_registry=Registro
+tab_security=Seguridad
+tab_contexts=Contextos
+
+label_exec=Ejecutar
+label_download_log=Descargar registro
+label_command=Comando
+label_run=Ejecutar
+label_copy=Copiar
+label_copy_ok=Copia completada
+label_copy_to=Copiar del host al contenedor
+label_copy_from=Copiar del contenedor al host
+label_host_path=Ruta del host
+label_target_path=Ruta destino en el contenedor
+label_source_path=Ruta origen en el contenedor
+label_host_dest=Destino en el host
+
+label_image=Imagen
+label_size=Tamaño
+label_digest=Digest
+label_actions=Acciones
+label_pull=Descargar imagen
+label_push=Subir imagen
+label_tag=Etiquetar imagen
+label_from=Desde
+label_to=Hacia
+label_build_tag=Construir imagen
+label_dockerfile=Contenido del Dockerfile
+label_prune_images=Eliminar imágenes sin usar
+label_pruned=Imágenes eliminadas
+label_built=Imagen construida
+label_tagged=Imagen etiquetada
+label_pulled=Imagen descargada
+label_pushed=Imagen subida
+label_checked=Actualización comprobada
+label_image_actions=Acciones de imagen
+
+label_compose=Archivo Compose
+label_compose_file=Ruta del archivo Compose
+label_compose_cmd=Acción de Compose
+label_run_compose=Ejecutar Compose
+label_compose_ran=Comando Compose ejecutado
+
+label_volumes=Volúmenes
+label_networks=Redes
+label_volume_create=Crear volumen
+label_network_create=Crear red
+label_mount=Punto de montaje
+label_scope=Ámbito
+label_driver=Controlador
+label_prune_volumes=Eliminar volúmenes sin usar
+label_prune_networks=Eliminar redes sin usar
+label_volume_created=Volumen creado
+label_network_created=Red creada
+
+label_registry=Credenciales del registro
+label_registry_server=Servidor de registro
+label_registry_user=Usuario
+label_registry_pass=Contraseña
+label_save_login=Guardar e iniciar sesión
+label_registry_saved=Credenciales guardadas
+
+label_scan=Escaneo de seguridad
+
+label_context=Contexto
+label_current_context=Contexto actual
+label_available_contexts=Contextos disponibles
+label_switch_context=Cambiar contexto
+label_context_set=Contexto actualizado
+
+label_create=Crear
+label_clone=Clonar contenedor
+label_source=Contenedor origen
+label_created=Contenedor creado
+label_cloned=Contenedor clonado

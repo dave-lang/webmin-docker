@@ -1,0 +1,105 @@
+not_installed=لم يتم العثور على Docker في هذا النظام
+
+index_title=إدارة حاويات Docker
+index_return=قائمة الحاويات
+
+view_container_title=الحاوية $1
+
+tab_info=معلومات Docker
+tab_containers=الحاويات
+tab_log=السجلات
+tab_inspect=فحص
+
+command_err=تعذر تنفيذ الأمر
+
+label_name=الاسم
+label_label=الوسم
+label_running=يعمل
+label_runningfor=مدة التشغيل
+label_cpu=المعالج
+label_mem=الذاكرة
+
+label_start=بدء
+label_stop=إيقاف
+label_restart=إعادة تشغيل
+label_refresh=تحديث
+label_viewlog=عرض السجل
+
+tab_images=الصور
+tab_compose=Compose
+tab_storage=التخزين
+tab_registry=المستودع
+tab_security=الأمان
+tab_contexts=السياقات
+
+label_exec=تنفيذ
+label_download_log=تنزيل السجل
+label_command=أمر
+label_run=تشغيل
+label_copy=نسخ
+label_copy_ok=اكتملت النسخ
+label_copy_to=نسخ من المضيف إلى الحاوية
+label_copy_from=نسخ من الحاوية إلى المضيف
+label_host_path=مسار المضيف
+label_target_path=مسار الحاوية الهدف
+label_source_path=مسار المصدر في الحاوية
+label_host_dest=الوجهة على المضيف
+
+label_image=الصورة
+label_size=الحجم
+label_digest=الخلاصة
+label_actions=إجراءات
+label_pull=سحب الصورة
+label_push=دفع الصورة
+label_tag=وضع وسم للصورة
+label_from=من
+label_to=إلى
+label_build_tag=بناء الصورة
+label_dockerfile=محتوى Dockerfile
+label_prune_images=حذف الصور غير المستخدمة
+label_pruned=تم حذف الصور
+label_built=تم بناء الصورة
+label_tagged=تم وسم الصورة
+label_pulled=تم سحب الصورة
+label_pushed=تم دفع الصورة
+label_checked=تم التحقق من التحديث
+label_image_actions=إجراءات الصورة
+
+label_compose=ملف Compose
+label_compose_file=مسار ملف Compose
+label_compose_cmd=إجراء Compose
+label_run_compose=تشغيل Compose
+label_compose_ran=تم تنفيذ أمر Compose
+
+label_volumes=الأحجام
+label_networks=الشبكات
+label_volume_create=إنشاء حجم
+label_network_create=إنشاء شبكة
+label_mount=نقطة الربط
+label_scope=النطاق
+label_driver=المشغل
+label_prune_volumes=حذف الأحجام غير المستخدمة
+label_prune_networks=حذف الشبكات غير المستخدمة
+label_volume_created=تم إنشاء الحجم
+label_network_created=تم إنشاء الشبكة
+
+label_registry=بيانات اعتماد المستودع
+label_registry_server=خادم المستودع
+label_registry_user=اسم المستخدم
+label_registry_pass=كلمة المرور
+label_save_login=حفظ وتسجيل الدخول
+label_registry_saved=تم حفظ بيانات الاعتماد
+
+label_scan=فحص أمني
+
+label_context=السياق
+label_current_context=السياق الحالي
+label_available_contexts=السياقات المتاحة
+label_switch_context=تبديل السياق
+label_context_set=تم تحديث السياق
+
+label_create=إنشاء
+label_clone=استنساخ الحاوية
+label_source=الحاوية المصدر
+label_created=تم إنشاء الحاوية
+label_cloned=تم استنساخ الحاوية

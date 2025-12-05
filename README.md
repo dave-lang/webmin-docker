@@ -60,6 +60,16 @@ Experimental rootless docker support has been added via [docker contexts](https:
 
 <img width="480" alt="Screenshot showing monitor support options" src="https://github.com/user-attachments/assets/b50d10ae-de5b-4329-8d49-b13e6efae09c">
 
+## What's new (expanded features)
+
+- Container creation/clone wizard with env/ports/volumes, restart policy and healthcheck; one-click exec with inline logs download and host↔container copy helpers.
+- Image management: pull/push/tag, build from Dockerfile content, prune dangling images, and update checks.
+- Compose runner: choose a compose file path and run `up -d`, `down`, `ps`, or `logs`.
+- Storage: list/inspect/prune volumes and networks; create new volumes and networks.
+- Registry credentials: save and login to a registry for private pulls.
+- Security: trigger `docker scan`/`trivy` if present to scan images.
+- Context management: list available Docker contexts and switch within the module.
+
 ## Contributing
 
 Improvements or fixes are welcome, please raise it under issues and link to your branch.

@@ -1,0 +1,4 @@
+name=حاويات Docker
+category=servers
+desc=عرض حاويات Docker
+longdesc=عرض وتنفيذ إجراءات أساسية على حاويات Docker في المضيف
